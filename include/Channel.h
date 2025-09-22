@@ -69,7 +69,7 @@ namespace myMuduo
         void enableReading()
         {
             events_ |= kReadEvent;
-            update();
+            update(); // 将感兴趣的事件添加到epoll
         }
 
         void disableReading()
@@ -122,7 +122,18 @@ namespace myMuduo
             index_ = index;
         }
 
+        // one loop per thread
+        EventLoop *ownerLoop()
+        {
+            return loop_;
+        }
+
+        void remove();
+
     private:
+        void update();
+        void handleEventWithGuard(Timestamp receiveTime);
+
         static const int kNoneEvent;
         static const int kReadEvent;
         static const int kWriteEvent;
