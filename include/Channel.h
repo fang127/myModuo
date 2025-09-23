@@ -140,8 +140,11 @@ namespace myMuduo
 
         EventLoop *loop_; // 事件循环
         const int fd_;    // Poller监听的对象
-        int events_;      // 注册fd感兴趣的事件
-        int revents_;     // Poller返回的具体发生的事件
+        // events_ revents_都是位掩码，表示fd这个连接，用户感兴趣的是读或者写或者读写都感兴趣，或者没有感兴趣的事。
+        // revents_是调用poll实际返回的发生的事件
+        // revents_中的事件一定是 events_的子集（或相等），因为操作系统只会通知用户关心的事件
+        int events_;  // 注册fd感兴趣的事件
+        int revents_; // Poller返回的具体发生的事件
         int index_;
 
         std::weak_ptr<void> tie_;

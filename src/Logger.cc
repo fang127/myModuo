@@ -19,7 +19,7 @@ namespace myMuduo
     }
 
     // 写日志  打印格式:      [级别] time ： msg
-    void Logger::log(std::string msg)
+    void Logger::log(const std::string &msg)
     {
         switch (logLevel_)
         {

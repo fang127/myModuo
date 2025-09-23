@@ -72,7 +72,7 @@ namespace myMuduo
         void setLogLevel(int level);
 
         // 写日志
-        void log(std::string msg);
+        void log(const std::string &msg);
 
     private:
         Logger();
