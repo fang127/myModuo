@@ -13,16 +13,4 @@ namespace myMuduo
         auto it = channels_.find(channel->fd());
         return it != channels_.end() && it->second == channel;
     }
-
-    Poller *Poller::newDefaultPoller(EventLoop *loop)
-    {
-        if (::getenv("MUDUO_USE_POLL"))
-        {
-            return nullptr;
-        }
-        else
-        {
-            return new EPollPoller(loop);
-        }
-    }
 } // namespace myMuduo
