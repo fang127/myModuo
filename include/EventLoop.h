@@ -1,14 +1,14 @@
 #pragma once
 
-#include "noncopyable.h"
-#include "Timestamp.h"
 #include "CurrentThread.h"
+#include "Timestamp.h"
+#include "noncopyable.h"
 
-#include <functional>
-#include <vector>
 #include <atomic>
+#include <functional>
 #include <memory>
 #include <mutex>
+#include <vector>
 
 namespace myMuduo
 {
@@ -30,7 +30,10 @@ namespace myMuduo
         // 退出事件循环
         void quit();
 
-        Timestamp pollReturnTime() const { return pollReturnTime_; }
+        Timestamp pollReturnTime() const
+        {
+            return pollReturnTime_;
+        }
 
         // 在当前loop中执行
         void runInLoop(Functor cb);
@@ -46,7 +49,10 @@ namespace myMuduo
         bool hasChannel(Channel *channel);
 
         // 判断EventLoop对象是否在自己的线程里面
-        bool isInLoopThread() const { return threadId_ == CurrentThread::tid(); }
+        bool isInLoopThread() const
+        {
+            return threadId_ == CurrentThread::tid();
+        }
 
     private:
         // 处理wake up

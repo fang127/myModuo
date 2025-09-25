@@ -1,13 +1,13 @@
 #include "EventLoop.h"
+#include "Channel.h"
 #include "Logger.h"
 #include "Poller.h"
-#include "Channel.h"
 
+#include <errno.h>
+#include <fcntl.h>
+#include <memory>
 #include <sys/eventfd.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <memory>
 
 namespace myMuduo
 {
@@ -30,13 +30,8 @@ namespace myMuduo
     }
 
     EventLoop::EventLoop()
-        : looping_(false),
-          quit_(false),
-          callingPendingFunctors_(false),
-          threadId_(CurrentThread::tid()),
-          poller_(Poller::newDefaultPoller(this)),
-          wakeupFd_(createEventfd()),
-          wakeupChannel_(new Channel(this, wakeupFd_))
+        : looping_(false), quit_(false), callingPendingFunctors_(false), threadId_(CurrentThread::tid()),
+          poller_(Poller::newDefaultPoller(this)), wakeupFd_(createEventfd()), wakeupChannel_(new Channel(this, wakeupFd_))
     {
         LOG_DEBUG("EventLoop created %p in thread %d \n", this, threadId_);
         if (t_loopInThisThread)
@@ -68,7 +63,7 @@ namespace myMuduo
         ssize_t n = read(wakeupFd_, &one, sizeof one);
         if (n != sizeof one)
         {
-            LOG_ERROR("EventLoop::handleRead() reads %d bytes instead of 8", n);
+            LOG_ERROR("EventLoop::handleRead() reads %lu bytes instead of 8", n);
         }
     }
 
@@ -103,7 +98,8 @@ namespace myMuduo
     /*
                         mainloop
 
-                                        muduo库没有该模式   =================   生产者-消费者的线程安全队列，mainloop监听连接请求fd，subloop监听已连接的fd
+                                        muduo库没有该模式   =================
+       生产者-消费者的线程安全队列，mainloop监听连接请求fd，subloop监听已连接的fd
             muduo库是直接通过wakeupfd唤醒，通过轮询找到一个subloop，将连接事件fd置入其中
            subloop01    subloop02   subloop03
     */
@@ -194,4 +190,4 @@ namespace myMuduo
 
         callingPendingFunctors_ = false;
     }
-}
+} // namespace myMuduo

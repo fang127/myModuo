@@ -35,7 +35,7 @@ namespace myMuduo
     {
         return ntohs(addr_.sin_port);
     }
-}
+} // namespace myMuduo
 
 // #include <iostream>
 

@@ -12,8 +12,7 @@ namespace myMuduo
     public:
         explicit InetAddress(uint16_t port, std::string ip = "127.0.0.1");
 
-        explicit InetAddress(const sockaddr_in &addr)
-            : addr_(addr)
+        explicit InetAddress(const sockaddr_in &addr) : addr_(addr)
         {
         }
 
@@ -31,4 +30,4 @@ namespace myMuduo
     private:
         sockaddr_in addr_;
     };
-}
+} // namespace myMuduo

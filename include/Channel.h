@@ -1,7 +1,7 @@
 #pragma once
 
-#include "noncopyable.h"
 #include "Timestamp.h"
+#include "noncopyable.h"
 
 #include <functional>
 #include <memory>
@@ -60,7 +60,7 @@ namespace myMuduo
             return events_;
         }
 
-        int set_revents(int revt)
+        void set_revents(int revt)
         {
             revents_ = revt;
         }
@@ -156,4 +156,4 @@ namespace myMuduo
         EventCallBack closeCallBack_;
         EventCallBack errorCallBack_;
     };
-}
+} // namespace myMuduo

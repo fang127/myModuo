@@ -15,4 +15,4 @@ namespace myMuduo
         noncopyable() = default;
         ~noncopyable() = default;
     };
-}
+} // namespace myMuduo

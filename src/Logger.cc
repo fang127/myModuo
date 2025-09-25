@@ -42,5 +42,7 @@ namespace myMuduo
         std::cout << Timestamp::now().toString() << " : " << msg << std::endl;
     }
 
-    Logger::Logger() {}
-}
+    Logger::Logger()
+    {
+    }
+} // namespace myMuduo
