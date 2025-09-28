@@ -1,4 +1,4 @@
-#include "EventLoop.h"
+#include "EPollPoller.h"
 #include "Poller.h"
 
 #include <stdlib.h>
@@ -14,7 +14,7 @@ namespace myMuduo
         }
         else
         {
-            return nullptr; // 生成epoll实例
+            return new EPollPoller(loop); // 生成epoll实例
         }
     }
 
