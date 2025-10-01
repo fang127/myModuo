@@ -246,6 +246,7 @@ void TcpConnection::handleWrite()
     }
 }
 
+// 底层Poller通知channel在EPollHUP时，调用该方法
 void TcpConnection::handleClose()
 {
     LOG_INFO("fd=%d state=%d \n", channel_->fd(), static_cast<int>(state_));
@@ -255,7 +256,7 @@ void TcpConnection::handleClose()
     TcpConnectionPtr connPtr(shared_from_this());
     // 执行连接关闭回调
     connectionCallBack_(connPtr);
-    // 执行关闭连接回调
+    // 执行关闭连接回调 是TcpServer::removeConnection回调
     closeCallBack_(connPtr);
 }
 
