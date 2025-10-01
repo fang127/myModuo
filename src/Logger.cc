@@ -5,24 +5,21 @@
 
 namespace myMuduo
 {
-    // 获取日志唯一的实例对象
-    Logger &Logger::instance()
-    {
-        static Logger logger;
-        return logger;
-    }
+// 获取日志唯一的实例对象
+Logger &Logger::instance()
+{
+    static Logger logger;
+    return logger;
+}
 
-    // 设置日志级别
-    void Logger::setLogLevel(int level)
-    {
-        logLevel_ = level;
-    }
+// 设置日志级别
+void Logger::setLogLevel(int level) { logLevel_ = level; }
 
-    // 写日志  打印格式:      [级别] time ： msg
-    void Logger::log(const std::string &msg)
+// 写日志  打印格式:      [级别] time ： msg
+void Logger::log(const std::string &msg)
+{
+    switch (logLevel_)
     {
-        switch (logLevel_)
-        {
         case INFO:
             std::cout << "[INFO]";
             break;
@@ -36,13 +33,11 @@ namespace myMuduo
             break;
         default:
             break;
-        }
-
-        // 打印时间
-        std::cout << Timestamp::now().toString() << " : " << msg << std::endl;
     }
 
-    Logger::Logger()
-    {
-    }
+    // 打印时间
+    std::cout << Timestamp::now().toString() << " : " << msg << std::endl;
+}
+
+Logger::Logger() {}
 } // namespace myMuduo

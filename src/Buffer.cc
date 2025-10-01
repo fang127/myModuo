@@ -2,6 +2,7 @@
 
 #include <errno.h>
 #include <sys/uio.h>
+#include <unistd.h>
 
 namespace myMuduo
 {
@@ -42,6 +43,17 @@ ssize_t Buffer::readFd(int fd, int *saveErrno)
         append(extrabuf, n - writable);
     }
 
+    return n;
+}
+
+ssize_t Buffer::writeFd(int fd, int *saveErrno)
+{
+    ssize_t n = ::write(fd, peek(), readableBytes());
+
+    if (n < 0)
+    {
+        *saveErrno = errno;
+    }
     return n;
 }
 

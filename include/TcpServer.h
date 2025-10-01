@@ -48,7 +48,10 @@ public:
     {
         messageCallBack_ = cb;
     }
-    void setWriteCallBack(const WriteCallBack &cb) { writeCallBack_ = cb; }
+    void setWriteCompleteCallBack(const WriteCompleteCallBack &cb)
+    {
+        writeCompleteCallBack_ = cb;
+    }
 
     // 设置subloop个数
     void setThreadNum(int numThreads);
@@ -69,9 +72,9 @@ private:
     std::unique_ptr<Acceptor> acceptor_; // 运行在mainloop,监听新连接事件
     std::shared_ptr<EventLoopThreadPool> threadPool_; // one loop per thread
 
-    ConnectionCallBack connectionCallBack_; // 有新连接的回调
-    MessageCallBack messageCallBack_;       // 有可读写消息的回调
-    WriteCallBack writeCallBack_;           // 消息发送完成后的回调
+    ConnectionCallBack connectionCallBack_;       // 有新连接的回调
+    MessageCallBack messageCallBack_;             // 有可读写消息的回调
+    WriteCompleteCallBack writeCompleteCallBack_; // 消息发送完成后的回调
 
     ThreadInitCallBack threadInitCallBack_; // 线程初始化时的回调
 

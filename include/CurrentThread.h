@@ -1,20 +1,20 @@
 #pragma once
 
-#include <unistd.h>
 #include <sys/syscall.h>
+#include <unistd.h>
 
 namespace myMuduo::CurrentThread
 {
-    extern thread_local int t_cachedTid;
+extern thread_local int t_cachedTid;
 
-    void cacheTid();
+void cacheTid();
 
-    inline int tid()
+inline int tid()
+{
+    if (__builtin_expect(t_cachedTid == 0, 0))
     {
-        if (__builtin_expect(t_cachedTid == 0, 0))
-        {
-            cacheTid();
-        }
-        return t_cachedTid;
+        cacheTid();
     }
+    return t_cachedTid;
 }
+} // namespace myMuduo::CurrentThread
