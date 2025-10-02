@@ -21,8 +21,6 @@ public:
     {
     }
 
-    ~Buffer();
-
     size_t readableBytes() const { return writerIndex_ - readerIndex_; }
 
     size_t writableBytes() const { return buffer_.size() - writerIndex_; }

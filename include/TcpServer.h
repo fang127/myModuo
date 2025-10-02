@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Acceptor.h"
+#include "Buffer.h"
 #include "CallBack.h"
 #include "EventLoop.h"
 #include "EventLoopThreadPool.h"
 #include "InetAddress.h"
+#include "TcpConnection.h"
 #include "noncopyable.h"
 
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <string>

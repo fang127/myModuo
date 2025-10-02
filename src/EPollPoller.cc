@@ -31,12 +31,13 @@ EPollPoller::~EPollPoller() { ::close(epollfd_); }
 Timestamp EPollPoller::poll(int timeoutMs, ChannelList *activateChannels)
 {
     // 使用LOG_DEBUG，只有在DEBUG时候才会输出日志，避免正式使用的时候高并发时poll性能慢
-    LOG_DEBUG("func=%s => fd total count:%lu\n", __func__, channels_.size());
+    LOG_INFO("func=%s => fd total count:%lu\n", __func__, channels_.size());
 
     int numEvents = ::epoll_wait(epollfd_, &*events_.begin(),
                                  static_cast<int>(events_.size()), timeoutMs);
-    int saveError = errno; // errno是全局变量,也是每个线程独有的，可能被后续操作覆盖，因此需要保存到局部变量
-                           // saveError中。
+    int saveError =
+        errno; // errno是全局变量,也是每个线程独有的，可能被后续操作覆盖，因此需要保存到局部变量
+               // saveError中。
     Timestamp now(Timestamp::now());
 
     if (numEvents > 0)

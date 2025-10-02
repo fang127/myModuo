@@ -61,7 +61,7 @@ void TcpConnection::send(const std::string &buf)
     {
         if (loop_->isInLoopThread())
         {
-            sendInLoop(&buf, buf.size());
+            sendInLoop(buf.c_str(), buf.size());
         }
         else
         {
@@ -197,7 +197,7 @@ void TcpConnection::handleRead(Timestamp receiveTime)
         messageCallBack_(shared_from_this(), &inputBuffer_, receiveTime);
     }
     // 断开
-    else if (n = 0)
+    else if (n == 0)
     {
         handleClose();
     }

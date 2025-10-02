@@ -1,6 +1,6 @@
 #include "Timestamp.h"
 
-#include <ctime>
+#include <time.h>
 
 namespace myMuduo
 {
