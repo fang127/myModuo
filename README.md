@@ -68,7 +68,7 @@ myMuduo 是一个基于 C++ 实现的高性能多线程网络库，参考 muduo 
 	export LD_LIBRARY_PATH=../../lib:$LD_LIBRARY_PATH
 	./testserver
 	```
-	另开终端使用 `nc 127.0.0.1 6000` 即可进行回显测试。
+	另开终端使用 `nc 127.0.0.1 8000` 即可进行回显测试。
 
 ## 贡献指南
 欢迎提交Issue和Pull Request来帮助改进本项目。
